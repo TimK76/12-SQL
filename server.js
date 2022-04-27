@@ -46,13 +46,13 @@ const db = mysql.createConnection(
 //     console.log(rows);
 // });
 
-// Query: Delete a Candidate
-db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
-    if (err) {
-        console.log(err);
-    }
-    console.log(result);
-});
+// // Query: Delete a Candidate
+// db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log(result);
+// });
 
 // Query: Create a Candidate
 const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) VALUES (?, ?, ?, ?)`;
