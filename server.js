@@ -10,7 +10,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Connect to databse
+// _______________________________________________________ Connect to databse _________________________________________________________
 const db = mysql.createConnection(
     {
         host: 'localhost',
@@ -30,17 +30,51 @@ const db = mysql.createConnection(
 //     });
 // });
 
-// query the database to test the connection
-db.query(`SELECT * FROM candidates`, (err, rows) => {
-    console.log(rows);
+
+//_________________________________________________________ Queries Section _________________________________________________________
+
+// // Query: All Candidates
+// db.query(`SELECT * FROM candidates`, (err, rows) => {
+//     console.log(rows);
+// });
+
+// // Query: Single Candidate
+// db.query(`SELECT * FROM candidates WHERE id = 5`, (err, rows) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log(rows);
+// });
+
+// Query: Delete a Candidate
+db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log(result);
 });
 
+// Query: Create a Candidate
+const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) VALUES (?, ?, ?, ?)`;
+const params = [1, 'Ronald', 'Firbank', 1];
+
+db.query(sql, params, (err, result) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log(result);
+});
+
+
+// _________________________________________________________  404 Route _________________________________________________________
 // Default response for any other request (Not Found)
 // MUST BE THE LAST ROUTE AS IT WILL OVERRIDE ALL OTHERS
 app.use((req, res) => {
     res.status(404).end();
 });
 
+
+// _________________________________________________________  Connection Function _________________________________________________________
 // Connection Function to start the server on port 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
