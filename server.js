@@ -30,6 +30,11 @@ const db = mysql.createConnection(
 //     });
 // });
 
+// query the database to test the connection
+db.query(`SELECT * FROM candidates`, (err, rows) => {
+    console.log(rows);
+});
+
 // Default response for any other request (Not Found)
 // MUST BE THE LAST ROUTE AS IT WILL OVERRIDE ALL OTHERS
 app.use((req, res) => {
